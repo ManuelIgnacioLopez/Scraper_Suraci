@@ -20,7 +20,7 @@ jobs:
         
        # Need to fetch reqs if needed
       - name: Installing all necessary packages
-        run: pip install chromedriver-autoinstaller selenium pyvirtualdisplay numpy PyPDF2 pandas gspread oauth2client time os pyvirtualdisplay undetected-chromedriver
+        run: pip install chromedriver-autoinstaller selenium pyvirtualdisplay numpy PyPDF2 pandas gspread oauth2client pyvirtualdisplay undetected-chromedriver
       - name: Install xvfb
         run: sudo apt-get install xvfb
     
