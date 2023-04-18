@@ -2,7 +2,7 @@ name: Scrapper Suraci 1
 on:
   workflow_dispatch:
   schedule:
-      - cron: '00 07 */3 * *'
+      - cron: '00 07 */10 * *'
 jobs:
   scrape:
     runs-on: ubuntu-latest
