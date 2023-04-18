@@ -19,8 +19,6 @@ display.start()
 
 #Inicio
 
-ssl._create_default_https_context = ssl._create_unverified_context
-
 driver = uc.Chrome(use_subprocess=True)
 
 #driver = webdriver.Chrome('/Users/manuellopez/Desktop/chromedriver')
