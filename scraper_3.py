@@ -54,20 +54,76 @@ for ii in url_zp:
     metros2_zp.append(driver.find_element(By.CLASS_NAME,"section-icon-features").text)
 
     
-u_bi=ubicacion_zp.split()
-m_2=metros2_zp.split()
+    
+driver.get('https://www.cronista.com/MercadosOnline/moneda.html?id=ARSMEP')
+ele = driver.find_element(By.XPATH,'//*[@id="market-scrll-1"]/tbody/tr/td[2]/a/div/div[2]')
+dollar=ele.text
+dollar= dollar.replace('$', '')
+dollar= dollar.replace(',', '.')
+dollar= float(dollar)
 
-direccion
-departamento
-m2tot
-m2cub
 
+pesos=[]
+for i in precio_zp:
+    if i=='Consultar Precio':
+        aa=i.replace('Consultar Precio', '')
+        pesos.append(aa)
+    
+    elif i.find('USD'):
+        aa=i.replace('$ ', '')
+        aa=aa.replace('.', '')
+        nuevo=float(aa)
+        pesos.append(nuevo)
+        
+    elif i.find('$'):
+        aa=i.replace('USD ', '')
+        aa=aa.replace('.', '')
+        nuevo=float(aa)*dollar
+        pesos.append(nuevo)
 
-Data= pd.DataFrame({'Precio' : precio_zp,
+s=[]
+u_bi=[]
+
+for i in range(0,len(ubicacion_zp)):
+    u_bi.append(ubicacion_zp[i].split('\n'))
+
+s=pd.DataFrame(u_bi, columns=['direccion','dpto', 'c'])
+
+direccion=s.direccion
+departamento=s.dpto
+
+m_2_1=[]
+m_2_2=[]
+
+for i in range(0,len(metros2_zp)):
+    m_2_1.append(metros2_zp[i].split(' '))
+
+m_2_1=pd.DataFrame(m_2_1)
+
+totales=m_2_1[0]
+intermedio=m_2_1[2]
+
+for i in range(0,len(metros2_zp)):
+    m_2_2.append(intermedio[i].split('\n'))
+    
+m_2_2=pd.DataFrame(m_2_2)
+
+cubiertos=m_2_2[1]
+
+m2tot=totales
+m2cub=cubiertos
+
+df4= pd.DataFrame({'Precio' : precio_zp,
                                 'Direccion' : direccion,
                                 'Departamento de Mendoza' : departamento, 'm2 totales' : m2tot, 'm2 cubiertos' : m2cub, 'Link' : url_zp}, 
-                                columns=['Precio','Direccion', 'Departamento de Mendoza', 'm2 totales','m2 cubiertos', 'Link'])    
-    
+                                columns=['Precio','Direccion', 'Departamento de Mendoza', 'm2 totales','m2 cubiertos', 'Link'])      
+
+ 
+
+
+
+
+
 credentials ={
   "type": "service_account",
   "project_id": "scrapper-suraci",
@@ -83,7 +139,7 @@ credentials ={
 
 
 
-df4=pd.DataFrame(Data4)
+
 
 gc = gspread.service_account_from_dict(credentials)
 sh = gc.open("bbdd scrapper Suraci")
