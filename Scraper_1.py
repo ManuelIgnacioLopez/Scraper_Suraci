@@ -11,10 +11,20 @@ import time
 import csv
 import os
 import gspread
+from pyvirtualdisplay import Display
+import undetected_chromedriver as uc
+
+
+display = Display(visible=0, size=(800, 800))  
+display.start()
 
 #Inicio
 
-driver = webdriver.Chrome('/Users/manuellopez/Desktop/chromedriver')
+ssl._create_default_https_context = ssl._create_unverified_context
+
+driver = uc.Chrome(use_subprocess=True)
+
+#driver = webdriver.Chrome('/Users/manuellopez/Desktop/chromedriver')
 
 urls=['https://negozona.com/anuncios/Busqueda/Todos/State-11-Mendoza/Alimentos-y-Bebidas/Todos/Todos/Todos/Todos/0,100000+?order_by_field=',
       'https://negozona.com/anuncios/Busqueda/Todos/State-11-Mendoza/Animales-y-Agro/Todos/Todos/Todos/Todos/0,100000+?order_by_field=',
