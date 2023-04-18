@@ -1,0 +1,42 @@
+name: Scrapper Suraci 1
+on:
+  workflow_dispatch:
+  schedule:
+      - cron: '00 07 */3 * *'
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out repo
+        uses: actions/checkout@v3
+      - name: Setting up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Installing package list
+        run: apt list --installed    
+      - name: Removing previous chrome instances on runner 
+        run: sudo apt purge google-chrome-stable  
+        
+       # Need to fetch reqs if needed
+      - name: Installing all necessary packages
+        run: pip install chromedriver-autoinstaller selenium pyvirtualdisplay numpy PyPDF2 pandas gspread oauth2client time os pyvirtualdisplay undetected-chromedriver
+      - name: Install xvfb
+        run: sudo apt-get install xvfb
+    
+      - name: Instalar locale
+        run: |
+          sudo apt-get update && sudo apt-get install tzdata locales -y && sudo locale-gen pt_BR.UTF-8
+          sudo localectl set-locale LANG="es_ES.UTF-8"
+          export LANG="es_ES.UTF-8"
+          sudo update-locale
+      - name: Running the Python (Suraci 1)
+        run: python scrapper_1.py
+        
+      - name: Commit and Push The Results From Python Selenium Action
+        run: |
+         git config --global user.name "github-actions[bot]"
+         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+         git add -A
+         git commit -m "Cambios nuevos"
+         git push
