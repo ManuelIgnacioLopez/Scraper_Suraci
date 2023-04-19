@@ -145,7 +145,7 @@ gc = gspread.service_account_from_dict(credentials)
 sh = gc.open("bbdd scrapper Suraci")
 
 sh = gc.open("bbdd scrapper Suraci")
-worksheet4= sh.get_worksheet(1)
+worksheet4= sh.get_worksheet(3)
 worksheet4.update([df4.columns.values.tolist()] + df4.values.tolist(),value_input_option="USER_ENTERED") 
   
   
