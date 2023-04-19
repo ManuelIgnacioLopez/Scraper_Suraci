@@ -103,7 +103,6 @@ credentials ={
 
 
 
-
 gc = gspread.service_account_from_dict(credentials)
 sh = gc.open("bbdd scrapper Suraci")
 
