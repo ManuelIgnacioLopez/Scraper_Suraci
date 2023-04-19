@@ -45,7 +45,7 @@ for aa in range(1, 49):
 for aa in range(1, 49):
     path_ur.append('/html/body/div[3]/div[1]/section/div/section/div/div/div[' + str(aa) + ']/article/div[2]/h4/a') 
 
- for aa in range(0, len(urls_inmoclick)):
+for aa in range(0, len(urls_inmoclick)):
     driver.get(urls_inmoclick[aa])
     for ab in range(0, 48):
         pr = driver.find_element(By.XPATH,path_p[ab]).text
