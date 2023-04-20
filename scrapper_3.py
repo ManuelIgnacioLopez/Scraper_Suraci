@@ -53,7 +53,7 @@ links=driver.find_elements(By.CLASS_NAME,"sc-i1odl-0, hUSpvd")
 largo=len(links)
 
 for ii in range(0,largo):
-    url_zp.append('https://www.zonaprop.com.ar' + links[ii].get_attribute("data-to-posting")
+    url_zp.append('https://www.zonaprop.com.ar' + links[ii].get_attribute("data-to-posting"))
 
 for paso in url_zp:                  
     driver.get(paso)
