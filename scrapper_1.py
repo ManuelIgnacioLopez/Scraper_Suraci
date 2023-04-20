@@ -72,18 +72,18 @@ for aa in range(0, len(urls)):
     count=0    
 Nombres_marca = Nombres_marca[::2]
 cate = cate[::2]
-dolarz=False
+dolarz=False    
 while dolarz==False:
-      try driver.get('https://www.cronista.com/MercadosOnline/moneda.html?id=ARSMEP'):
-      
-            ele = driver.find_element(By.XPATH,'//*[@id="market-scrll-1"]/tbody/tr/td[2]/a/div/div[2]')
-            dollar=ele.text
-            dollar= dollar.replace('$', '')
-            dollar= dollar.replace(',', '.')
-            dollar= float(dollar)
-            dolarz=True
-      except:
-            dolarz=False
+  try:
+    driver.get('https://www.cronista.com/MercadosOnline/moneda.html?id=ARSMEP')
+    ele = driver.find_element(By.XPATH,'//*[@id="market-scrll-1"]/tbody/tr/td[2]/a/div/div[2]')
+    dollar=ele.text
+    dollar= dollar.replace('$', '')
+    dollar= dollar.replace(',', '.')
+    dollar= float(dollar)
+    dolarz=True
+  except:
+    dolarz=False
 
 dolar=[]
 for i in Inv_totalmin_marca:
