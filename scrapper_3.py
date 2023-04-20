@@ -54,7 +54,7 @@ for ii in url_zp:
     metros2_zp.append(driver.find_element(By.CLASS_NAME,"section-icon-features").text)
 
     
-    
+dolarz=False    
 while dolarz==False:
   try:
     driver.get('https://www.cronista.com/MercadosOnline/moneda.html?id=ARSMEP')
