@@ -22,7 +22,7 @@ display.start()
 driver = uc.Chrome(use_subprocess=True)
 
 urls_zp=[
-    'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza.html,
+    'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza.html',
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-2.html',
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-3.html',
   'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-4.html',
