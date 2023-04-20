@@ -21,39 +21,55 @@ display.start()
 
 driver = uc.Chrome(use_subprocess=True)
 
-driver.get('https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza.html')
+urls_zp=[
+    'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza.html,
+    'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-2.html',
+    'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-3.html',
+  'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-4.html',
+  'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-5.html',
+  'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-6.html'
+]
 
-                                    
-leng=driver.find_element(By.CLASS_NAME,"sc-1oqs0ed-0, dbbZNk").text
-leng=leng.split()
-leng=leng[0]
-leng=int(leng)
+driver.get(urls_zp[0])
+time.sleep(5)
+largoUrl=driver.find_element(By.XPATH,'/html/body/div[1]/div[2]/div/div/div[1]/div[2]/div[1]/div[1]/h1').text
+largoUrl=largoUrl.split()
+largoUrl=int(largoUrl[0])
+largoUrl=int(largoUrl/20)-1
 
+for i in range(0,largoUrl):
+  driver.get(urls_zp[i])
+  leng=driver.find_element(By.CLASS_NAME,"sc-1oqs0ed-0, dbbZNk").text
+  leng=leng.split()
+  leng=leng[0]
+  leng=int(leng)
+  ubicacion_zp = []
+  metros2_zp = []
+  precio_zp = []
+  url_zp = []
 
-ubicacion_zp = []
-metros2_zp = []
-precio_zp = []
-url_zp = []
+  path_ubi_zp=[]
+  path_m2_zp=[]
+  path_p_zp=[]
+  path_ur_zp=[]
 
-path_ubi_zp=[]
-path_m2_zp=[]
-path_p_zp=[]
-path_ur_zp=[]
+  links=driver.find_elements(By.CLASS_NAME,"sc-i1odl-0, hUSpvd")
+  largo=len(links)
 
-links=driver.find_elements(By.CLASS_NAME,"sc-i1odl-0, hUSpvd")
-largo=len(links)
+  for i in range(0,largo):
+      url_zp.append('https://www.zonaprop.com.ar' + links[i].get_attribute("data-to-posting"))
 
-for i in range(0,largo):
-    url_zp.append('https://www.zonaprop.com.ar' + links[i].get_attribute("data-to-posting"))
-
-for ii in url_zp:
-    driver.get(ii)
+  for ii in url_zp:
+      driver.get(ii)
     
-    precio_zp.append(driver.find_element(By.CLASS_NAME,"price-items").text)
-    ubicacion_zp.append(driver.find_element(By.CLASS_NAME,"title-location").text)
-    metros2_zp.append(driver.find_element(By.CLASS_NAME,"section-icon-features").text)
+      precio_zp.append(driver.find_element(By.CLASS_NAME,"price-items").text)
+      ubicacion_zp.append(driver.find_element(By.CLASS_NAME,"title-location").text)
+      metros2_zp.append(driver.find_element(By.CLASS_NAME,"section-icon-features").text)
 
     
+
+
+
 dolarz=False    
 while dolarz==False:
   try:
@@ -66,9 +82,6 @@ while dolarz==False:
     dolarz=True
   except:
     dolarz=False
-
-
-
 pesos=[]
 for i in precio_zp:
     if i=='Consultar Precio':
