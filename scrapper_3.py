@@ -10,12 +10,11 @@ import numpy as np
 import time
 import os
 import gspread
-from pyvirtualdisplay import Display
+
 import undetected_chromedriver as uc
 
 
-display = Display(visible=0, size=(800, 800))  
-display.start()
+
 
 #Inicio
 
@@ -32,42 +31,58 @@ urls_zp=[
 
 driver.get(urls_zp[0])
 time.sleep(5)
-largoUrl=driver.find_element(By.XPATH,'/html/body/div[1]/div[2]/div/div/div[1]/div[2]/div[1]/div[1]/h1').text
+largoUrl=driver.find_element(By.CLASS_NAME,'sc-1oqs0ed-0, dbbZNk').text
 largoUrl=largoUrl.split()
 largoUrl=int(largoUrl[0])
-largoUrl=int(largoUrl/20)-1
+largoUrl=int(largoUrl/20)
 
-for i in range(0,largoUrl):
-  driver.get(urls_zp[i])
-  leng=driver.find_element(By.CLASS_NAME,"sc-1oqs0ed-0, dbbZNk").text
-  leng=leng.split()
-  leng=leng[0]
-  leng=int(leng)
-  ubicacion_zp = []
-  metros2_zp = []
-  precio_zp = []
-  url_zp = []
+print(largoUrl)
 
-  path_ubi_zp=[]
-  path_m2_zp=[]
-  path_p_zp=[]
-  path_ur_zp=[]
+ubicacion_zp = []
+metros2_zp = []  
+precio_zp = []
+url_zp = []
+url_zp_2 = []
 
-  links=driver.find_elements(By.CLASS_NAME,"sc-i1odl-0, hUSpvd")
-  largo=len(links)
+driver.get(urls_zp[0])
+leng=driver.find_element(By.CLASS_NAME,"sc-1oqs0ed-0, dbbZNk").text
+leng=leng.split()
+leng=leng[0]
+leng=int(leng)
+links=driver.find_elements(By.CLASS_NAME,"sc-i1odl-0, hUSpvd")
+largo=len(links)
 
-  for i in range(0,largo):
-      url_zp.append('https://www.zonaprop.com.ar' + links[i].get_attribute("data-to-posting"))
+for ii in range(0,largo):
+    url_zp.append('https://www.zonaprop.com.ar' + links[ii].get_attribute("data-to-posting")
 
-  for ii in url_zp:
-      driver.get(ii)
-    
-      precio_zp.append(driver.find_element(By.CLASS_NAME,"price-items").text)
-      ubicacion_zp.append(driver.find_element(By.CLASS_NAME,"title-location").text)
-      metros2_zp.append(driver.find_element(By.CLASS_NAME,"section-icon-features").text)
+for iii in url_zp:
+                  
+    driver.get(iii)
+    precio_zp.append(driver.find_element(By.CLASS_NAME,"price-items").text)
+    ubicacion_zp.append(driver.find_element(By.CLASS_NAME,"title-location").text)
+    metros2_zp.append(driver.find_element(By.CLASS_NAME,"section-icon-features").text)
 
-    
 
+driver.get(urls_zp[1])
+leng=driver.find_element(By.CLASS_NAME,"sc-1oqs0ed-0, dbbZNk").text
+leng=leng.split()
+leng=leng[0]
+leng=int(leng)
+links=driver.find_elements(By.CLASS_NAME,"sc-i1odl-0, hUSpvd")
+largo=len(links)
+
+for ii in range(0,largo):
+    url_zp_2.append('https://www.zonaprop.com.ar' + links[ii].get_attribute("data-to-posting"))
+
+for iii in url_zp_2:
+
+    driver.get(iii)
+    precio_zp.append(driver.find_element(By.CLASS_NAME,"price-items").text)
+    ubicacion_zp.append(driver.find_element(By.CLASS_NAME,"title-location").text)
+    metros2_zp.append(driver.find_element(By.CLASS_NAME,"section-icon-features").text)
+
+for i in url_zp_2:
+    url_zp.append(url_zp_2)
 
 
 dolarz=False    
@@ -166,5 +181,3 @@ sh = gc.open("bbdd scrapper Suraci")
 sh = gc.open("bbdd scrapper Suraci")
 worksheet4= sh.get_worksheet(3)
 worksheet4.update([df4.columns.values.tolist()] + df4.values.tolist(),value_input_option="USER_ENTERED") 
-  
-  
