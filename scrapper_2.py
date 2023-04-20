@@ -119,10 +119,10 @@ while dolarz==False:
         dollar=ele.text
         dollar= dollar.replace('$', '')
         dollar= dollar.replace(',', '.')
-        dollar= float(dollar)
+        dolar= float(dollar)
         dolarz=True
     except:
-            dolarz=False
+        dolarz=False
 
 for ac in range(0, largoo):
     precio1=precio[ac].split('$ ')
