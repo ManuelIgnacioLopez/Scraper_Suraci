@@ -10,11 +10,11 @@ import numpy as np
 import time
 import os
 import gspread
-
+from pyvirtualdisplay import Display
 import undetected_chromedriver as uc
 
-
-
+display = Display(visible=0, size=(800, 800))  
+display.start()
 
 #Inicio
 
