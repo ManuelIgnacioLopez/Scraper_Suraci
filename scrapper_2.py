@@ -4,26 +4,43 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
 import pandas as pd
 import numpy as np
 import time
 import os
 import gspread
-from pyvirtualdisplay import Display
 import undetected_chromedriver as uc
 
-
-display = Display(visible=0, size=(800, 800))  
-display.start()
 
 #Inicio
 
 driver = uc.Chrome(use_subprocess=True)
 
-urls_inmoclick=['https://www.inmoclick.com.ar/locales-comerciales-en-alquiler?favoritos=0&limit=48&prevEstadoMap=&ordenar=menor-precio&q=mendoza&lastZoom=13&precio%5Bmin%5D=&precio%5Bmax%5D=&moneda=1&sup_cubierta%5Bmin%5D=&sup_cubierta%5Bmax%5D=&expensas%5Bmin%5D=&expensas%5Bmax%5D=',
-      'https://www.inmoclick.com.ar/locales-comerciales-en-alquiler?favoritos=0&limit=48&prevEstadoMap=&ordenar=menor-precio&q=mendoza&lastZoom=13&precio%5Bmin%5D=&precio%5Bmax%5D=&moneda=1&sup_cubierta%5Bmin%5D=&sup_cubierta%5Bmax%5D=&expensas%5Bmin%5D=&expensas%5Bmax%5D=&page=2'
-     ]
+urls_inmoclick=[
+    'https://www.inmoclick.com.ar/locales-comerciales-en-alquiler?favoritos=0&limit=48&prevEstadoMap=&localidades=1%2C2%2C8%2C19%2C7%2C6%2C10&lastZoom=13&precio%5Bmin%5D=&precio%5Bmax%5D=&moneda=1&sup_cubierta%5Bmin%5D=&sup_cubierta%5Bmax%5D=&expensas%5Bmin%5D=&expensas%5Bmax%5D=',
+    'https://www.inmoclick.com.ar/locales-comerciales-en-alquiler?favoritos=0&limit=48&prevEstadoMap=&localidades=1%2C2%2C8%2C19%2C7%2C6%2C10&lastZoom=13&precio%5Bmin%5D=&precio%5Bmax%5D=&moneda=1&sup_cubierta%5Bmin%5D=&sup_cubierta%5Bmax%5D=&expensas%5Bmin%5D=&expensas%5Bmax%5D=&page=2',
+    'https://www.inmoclick.com.ar/locales-comerciales-en-alquiler?favoritos=0&limit=48&prevEstadoMap=&localidades=1%2C2%2C8%2C19%2C7%2C6%2C10&lastZoom=13&precio%5Bmin%5D=&precio%5Bmax%5D=&moneda=1&sup_cubierta%5Bmin%5D=&sup_cubierta%5Bmax%5D=&expensas%5Bmin%5D=&expensas%5Bmax%5D=&page=3',
+    'https://www.inmoclick.com.ar/locales-comerciales-en-alquiler?favoritos=0&limit=48&prevEstadoMap=&localidades=1%2C2%2C8%2C19%2C7%2C6%2C10&lastZoom=13&precio%5Bmin%5D=&precio%5Bmax%5D=&moneda=1&sup_cubierta%5Bmin%5D=&sup_cubierta%5Bmax%5D=&expensas%5Bmin%5D=&expensas%5Bmax%5D=&page=4',
+    'https://www.inmoclick.com.ar/locales-comerciales-en-alquiler?favoritos=0&limit=48&prevEstadoMap=&localidades=1%2C2%2C8%2C19%2C7%2C6%2C10&lastZoom=13&precio%5Bmin%5D=&precio%5Bmax%5D=&moneda=1&sup_cubierta%5Bmin%5D=&sup_cubierta%5Bmax%5D=&expensas%5Bmin%5D=&expensas%5Bmax%5D=&page=5',
+    'https://www.inmoclick.com.ar/locales-comerciales-en-alquiler?favoritos=0&limit=48&prevEstadoMap=&localidades=1%2C2%2C8%2C19%2C7%2C6%2C10&lastZoom=13&precio%5Bmin%5D=&precio%5Bmax%5D=&moneda=1&sup_cubierta%5Bmin%5D=&sup_cubierta%5Bmax%5D=&expensas%5Bmin%5D=&expensas%5Bmax%5D=&page=6'
+    
+]
+
+driver.get(urls_inmoclick[0])
+time.sleep(5)
+largoUrl=driver.find_element(By.XPATH,'/html/body/nav/form/div[2]/div[2]/div/div/div[1]/h2').text
+largoUrl=largoUrl.split()
+largoUrl=int(largoUrl[0])
+largoUrl=int(largoUrl/48)-1
+
+
+
+try :
+    largoUrl>2
+except:
+    largoUrl=1
+
 
 
 
@@ -31,6 +48,7 @@ ubicacion = []
 metros2 = []
 precio = []
 url = []
+datoss=[]
 
 path_ubi=[]
 path_m2=[]
@@ -45,10 +63,16 @@ for aa in range(1, 49):
 for aa in range(1, 49):
     path_ur.append('/html/body/div[3]/div[1]/section/div/section/div/div/div[' + str(aa) + ']/article/div[2]/h4/a') 
 
-for aa in range(0, len(urls_inmoclick)):
+
+
+    
+for aa in range(0, largoUrl):
     driver.get(urls_inmoclick[aa])
+    precios=driver.find_elements(By.CLASS_NAME,'price') 
     for ab in range(0, 48):
-        pr = driver.find_element(By.XPATH,path_p[ab]).text
+        pr_a = driver.find_element(By.XPATH,path_p[ab]).text
+        datoss.append(pr_a)
+        pr = precios[ab].text
         precio.append(pr)
     for ad in range(0, 48):
         try:
@@ -61,29 +85,62 @@ for aa in range(0, len(urls_inmoclick)):
     for ab in range(0, 48):
         driver.switch_to.window(driver.window_handles[0])
         try:
-            ur = driver.find_element(By.XPATH,path_ur[ab]).click()
-        except NoSuchElementException as e :
+            ur = driver.find_element(By.XPATH,path_p[ab]).click()
+        except (NoSuchElementException, ElementClickInterceptedException) as e :
             ur = None 
         driver.switch_to.window(driver.window_handles[-1])
         url.append(driver.current_url)
         
 precioo = []
 precio1 =[]
+datitos=[]
+largoo=largoUrl*48
 
-for ac in range(0, 48):
-    precio1.append(precio[ac].split('$'))
+
+for ac in range(0, largoo):
+    precio1.append(datoss[ac].split('$'))
 s=pd.DataFrame(precio1, columns=['a','b', 'c'])
 
-for ac in range(0, 48):
-    precioo.append(s.b[ac].split('\n'))
+for ac in range(0, largoo):
+    datitos.append(s.b[ac].split('\n'))
    
-d=pd.DataFrame(precioo)
+d=pd.DataFrame(datitos)
 
-d.columns = ['Precio', 'Lugar','2', 'mtot', 'mcubiertos', '5','6']
 
-d['Url']=url
-d['Metros2']=metros2
+dolarz=False
+while dolarz==False:
+    try:
+        driver.get('https://www.cronista.com/MercadosOnline/moneda.html?id=ARSMEP')
+        ele = driver.find_element(By.XPATH,'//*[@id="market-scrll-1"]/tbody/tr/td[2]/a/div/div[2]')
+        dollar=ele.text
+        dollar= dollar.replace('$', '')
+        dollar= dollar.replace(',', '.')
+        dollar= float(dollar)
+        dolarz=True
+    except:
+            dolarz=False
+
+for ac in range(0, largoo):
+    precio1=precio[ac].split('$ ')
+    if precio1[-2]=='(Consultar)' or precio1[-1]=='(Consultar)':
+        precioo.append('(Consultar)')
+    elif precio1[-2]=='US':
+        precio1[-1]=precio1[-1].replace('.', '')
+        precioo.append(int(precio1[-1])*dolar)  
+    else:
+        precio1[-1]=precio1[-1].replace('.', '')
+        precioo.append(int(precio1[-1]))
+   
+
+
+d.columns = ['$', 'Lugar','2', 'mtot', 'mcubiertos', '5','6']
+
+d['Precio']=precioo
 d['Direccion']=ubicacion
+d['Metros2']=metros2
+d['Url']=url
+
+
 
 df2 = pd.DataFrame(d)
 
@@ -109,5 +166,4 @@ sh = gc.open("bbdd scrapper Suraci")
 sh = gc.open("bbdd scrapper Suraci")
 worksheet3= sh.get_worksheet(2)
 worksheet3.update([df2.columns.values.tolist()] + df2.values.tolist(),value_input_option="USER_ENTERED")
-
 
