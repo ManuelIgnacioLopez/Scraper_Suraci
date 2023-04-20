@@ -55,9 +55,8 @@ largo=len(links)
 for ii in range(0,largo):
     url_zp.append('https://www.zonaprop.com.ar' + links[ii].get_attribute("data-to-posting")
 
-for iii in url_zp:
-                  
-    driver.get(iii)
+for paso in url_zp :                  
+    driver.get(paso)
     precio_zp.append(driver.find_element(By.CLASS_NAME,"price-items").text)
     ubicacion_zp.append(driver.find_element(By.CLASS_NAME,"title-location").text)
     metros2_zp.append(driver.find_element(By.CLASS_NAME,"section-icon-features").text)
