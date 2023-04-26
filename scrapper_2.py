@@ -36,7 +36,7 @@ time.sleep(5)
 largoUrl=driver.find_element(By.XPATH,'/html/body/nav/form/div[2]/div[2]/div/div/div[1]/h2').text
 largoUrl=largoUrl.split()
 largoUrl=int(largoUrl[0])
-largoUrl=int(largoUrl/48)-1
+largoUrl=int(largoUrl/48)
 
 
 
