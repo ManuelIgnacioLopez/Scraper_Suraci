@@ -135,15 +135,7 @@ for ac in range(0, largoo):
         precio1[-1]=precio1[-1].replace('.', '')
         precioo.append(int(precio1[-1]))
    
-num_columnas = d.shape[1]
-if num_columnas ==8:
-    d.columns = ['$', 'Lugar','2', 'mtot', 'mcubiertos', '5','6']
-elif num_columnas ==7:
-    d.columns = ['$', 'Lugar','2', 'mtot', 'mcubiertos', '5']
-elif num_columnas ==6:
-    d.columns = ['$', 'Lugar','2', 'mtot', 'mcubiertos']
-else:
-    d.columns = ['$', 'Lugar','2', 'mtot', 'mcubiertos','5','6','7']
+
     
     
 d['Precio']=precioo
