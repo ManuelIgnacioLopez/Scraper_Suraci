@@ -11,6 +11,7 @@ import time
 import os
 import gspread
 from pyvirtualdisplay import Display
+import chromedriver_autoinstaller as chromedriver
 #import undetected_chromedriver as uc
 
 
@@ -18,7 +19,9 @@ display = Display(visible=0, size=(800, 800))
 display.start()
 
 #Inicio
-driver = webdriver.Chrome('./chromedriver')
+chromedriver.install()
+driver = webdriver.Chrome()
+#driver = webdriver.Chrome('./chromedriver')
 #driver = uc.Chrome(use_subprocess=True)
 
 urls_inmoclick=[
