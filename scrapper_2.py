@@ -38,7 +38,12 @@ driver.get(urls_inmoclick[0])
 time.sleep(5)
 largoUrl=driver.find_element(By.XPATH,'/html/body/nav/form/div[2]/div[2]/div/div/div[1]/h2').text
 largoUrl=largoUrl.split()
-largoUrl=int(largoUrl[0])
+
+if len(largoUrl) > 0 and 0 <= index < len(largoUrl):
+    largoUrl = int(largoUrl[index])
+else:
+    largoUrl=1
+
 largoUrl=int(largoUrl/48)
 
 
