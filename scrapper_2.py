@@ -11,15 +11,15 @@ import time
 import os
 import gspread
 from pyvirtualdisplay import Display
-import undetected_chromedriver as uc
+#import undetected_chromedriver as uc
 
 
 display = Display(visible=0, size=(800, 800))  
 display.start()
 
 #Inicio
-
-driver = uc.Chrome(use_subprocess=True)
+driver = webdriver.Chrome('./chromedriver')
+#driver = uc.Chrome(use_subprocess=True)
 
 urls_inmoclick=[
     'https://www.inmoclick.com.ar/locales-comerciales-en-alquiler?favoritos=0&limit=48&prevEstadoMap=&localidades=1%2C2%2C8%2C19%2C7%2C6%2C10&lastZoom=13&precio%5Bmin%5D=&precio%5Bmax%5D=&moneda=1&sup_cubierta%5Bmin%5D=&sup_cubierta%5Bmax%5D=&expensas%5Bmin%5D=&expensas%5Bmax%5D=',
