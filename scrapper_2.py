@@ -66,9 +66,6 @@ for aa in range(1, 49):
     path_p.append('//*[@id="articles-and-map"]/div[1]/section/div/section/div/div/div[' + str(aa) + ']/article')
 for aa in range(1, 49):
     path_ur.append('/html/body/div[3]/div[1]/section/div/section/div/div/div[' + str(aa) + ']/article/div[2]/h4/a') 
-
-
-
     
 for aa in range(0, largoUrl):
     driver.get(urls_inmoclick[aa])
@@ -87,14 +84,17 @@ for aa in range(0, largoUrl):
         ubicacion.append(ubi)
         metros2.append(m2)
     for ab in range(0, 48):
-        driver.switch_to.window(driver.window_handles[0])
+        #driver.switch_to.window(driver.window_handles[0])
         try:
-            ur = driver.find_element(By.XPATH,path_p[ab]).click()
+            cardUrlRef = driver.find_element(By.XPATH, path_p[ab]+"//a[@target='_blank']")
+            cardUrl = cardUrlRef.get_attribute("href")
+            #ur = driver.find_element(By.XPATH,path_p[ab]).click()
         except (NoSuchElementException, ElementClickInterceptedException) as e :
-            ur = None 
-        driver.switch_to.window(driver.window_handles[-1])
-        url.append(driver.current_url)
-        
+            cardUrl = ""
+            #ur = None 
+        #driver.switch_to.window(driver.window_handles[-1])
+        url.append(cardUrl)
+        print(cardUrl)      
 precioo = []
 precio1 =[]
 datitos=[]
@@ -107,7 +107,8 @@ s=pd.DataFrame(precio1, columns=['a','b', 'c'])
 
 for ac in range(0, largoo):
     datitos.append(s.b[ac].split('\n'))
-   
+
+
 d=pd.DataFrame(datitos)
 
 
@@ -134,7 +135,7 @@ for ac in range(0, largoo):
     else:
         precio1[-1]=precio1[-1].replace('.', '')
         precioo.append(int(precio1[-1]))
-   
+
 
     
     
