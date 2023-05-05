@@ -19,7 +19,7 @@ display.start()
 
 #Inicio
 
-driver = uc.Chrome(use_subprocess=True)
+driver = uc.Chrome(version_main = 112)
 
 urls_zp=[
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza.html',
