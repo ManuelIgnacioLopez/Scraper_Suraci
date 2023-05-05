@@ -50,7 +50,7 @@ for mainUrl in urls_zp:
     except:
         break  
 url_zp=pd.Series(url_zp).drop_duplicates().tolist()
-len(url_zp)
+
 
 for url in url_zp:
         
@@ -84,7 +84,7 @@ for url in url_zp:
 dolarz=False    
 while dolarz==False:
   try:
-    driver.get('https://www.cronista.com/MercadosOnline/moneda.html?id=ARSMEP')
+    driver.get('https://www.cronista.com/MercadosOnline/moneda.html?id=ARSB')
     ele = driver.find_element(By.XPATH,'//*[@id="market-scrll-1"]/tbody/tr/td[2]/a/div/div[2]')
     dollar=ele.text
     dollar= dollar.replace('$', '')
@@ -143,11 +143,12 @@ cubiertos=m_2_2[1]
 m2tot=totales
 m2cub=cubiertos
 
-df4= pd.DataFrame({'Precio' : precio_zp,
+df4= pd.DataFrame({'Precio' : pesos,
                                 'Direccion' : direccion,
                                 'Departamento de Mendoza' : departamento, 'm2 totales' : m2tot, 'm2 cubiertos' : m2cub, 'Link' : url_zp}, 
                                 columns=['Precio','Direccion', 'Departamento de Mendoza', 'm2 totales','m2 cubiertos','Link'])   
     
+ 
 credentials ={
   "type": "service_account",
   "project_id": "scrapper-suraci",
