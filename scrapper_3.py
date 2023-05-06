@@ -74,10 +74,10 @@ for url in url_zp:
                         it +=1
                 except:
                         pass
-                        precio_zp.append(Null)
-                        ubicacion_zp.append(Null)
-                        metros2_zp.append(Null)
-                    #agregar Null a los que pasa
+                        precio_zp.append(None)
+                        ubicacion_zp.append(None)
+                        metros2_zp.append(None)
+                    
                         
         precio_zp.append(precioElement.text)
         ubicacion_zp.append(ubicacionElement.text)
