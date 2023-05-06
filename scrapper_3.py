@@ -62,7 +62,12 @@ for url in url_zp:
         it=0
         while(not elementFound or it==20):
                 try:
-                        precioElement = driver.find_element(By.CLASS_NAME,"price-items")
+                        try:
+                            precioElement1 = driver.find_element(By.CLASS_NAME,"wrap-container.left-line")
+                            precioElement = precioElement1.find_element(By.CLASS_NAME,"price-items")
+                        except:
+                            precioElement = driver.find_element(By.CLASS_NAME,"price-items")
+                        
                         ubicacionElement = driver.find_element(By.CLASS_NAME,"title-location")
                         mtsElement = driver.find_element(By.CLASS_NAME,"section-icon-features")
                         elementFound = True
