@@ -30,8 +30,7 @@ urls_zp=[
   'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-6.html'
 ]
 
-driver.get(urls_zp[0])
-time.sleep(5)
+
 
 
 ubicacion_zp = []
