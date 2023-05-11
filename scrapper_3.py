@@ -133,7 +133,8 @@ for i in range(0,len(metros2_zp)):
     m_2_1.append(metros2_zp[i].split(' '))
 
 m_2_1=pd.DataFrame(m_2_1)
-
+print(s)
+print(m_2_1)
 totales=m_2_1[0]
 intermedio=m_2_1[2]
 
