@@ -33,14 +33,7 @@ except WebDriverException as e:
         driver = uc.Chrome(version_main=correct_version)
     else:
         raise e
-
-if "Access Denied" in driver.page_source:
-    print("Request was blocked.")
-elif "Error" in driver.title:
-    print("Request resulted in an error.")
-else:
-    print("Request seems to be successful.")        
-        
+driver.implicitly_wait(6)
 urls_zp=[
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza.html',
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-2.html',
@@ -49,8 +42,6 @@ urls_zp=[
   'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-5.html',
   'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-6.html'
 ]
-
-
 
 
 ubicacion_zp = []
