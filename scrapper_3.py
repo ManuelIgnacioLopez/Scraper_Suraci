@@ -34,6 +34,13 @@ except WebDriverException as e:
     else:
         raise e
 
+if "Access Denied" in driver.page_source:
+    print("Request was blocked.")
+elif "Error" in driver.title:
+    print("Request resulted in an error.")
+else:
+    print("Request seems to be successful.")        
+        
 urls_zp=[
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza.html',
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-2.html',
@@ -146,10 +153,19 @@ for i in range(0,len(metros2_zp)):
     m_2_1.append(metros2_zp[i].split(' '))
 
 m_2_1=pd.DataFrame(m_2_1)
+print("var s:")
 print(s)
+print("var m_2_1:")
 print(m_2_1)
-totales=m_2_1[0]
-intermedio=m_2_1[2]
+print("end prints vars")
+if not m_2_1.empty:
+    totales=m_2_1[0]
+    intermedio=m_2_1[2]
+else:
+    totales = []
+    intermedio = []
+#totales=m_2_1[0]
+#intermedio=m_2_1[2]
 
 for i in range(0,len(metros2_zp)):
     m_2_2.append(intermedio[i].split('\n'))
