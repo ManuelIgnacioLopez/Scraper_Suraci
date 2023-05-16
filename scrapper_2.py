@@ -20,7 +20,20 @@ display.start()
 #Inicio
 
 
-driver = uc.Chrome(version_main = 112)
+try:
+    # try to create a driver with the latest ChromeDriver version
+    driver = uc.Chrome()
+except WebDriverException as e:
+    if 'This version of ChromeDriver only supports Chrome version' in e.msg:
+        try:
+            # trying to get correct version from error message
+            correct_version = int(e.msg.split('Current browser version is ')[1].split('.')[0])
+        except Exception:
+            # couldn't parse correct version, raising same exception
+            raise e
+        driver = uc.Chrome(version_main=correct_version)
+    else:
+        raise e
 #driver = uc.Chrome(use_subprocess=True)
 
 urls_inmoclick=[
