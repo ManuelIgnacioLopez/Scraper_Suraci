@@ -33,7 +33,7 @@ except WebDriverException as e:
         driver = uc.Chrome(version_main=correct_version)
     else:
         raise e
-driver.implicitly_wait(6)
+driver.implicitly_wait(10)
 urls_zp=[
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza.html',
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-2.html',
