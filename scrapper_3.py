@@ -60,7 +60,8 @@ for mainUrl in urls_zp:
     except:
         break  
 url_zp=pd.Series(url_zp).drop_duplicates().tolist()
-
+print("var url_zp:")
+print(url_zp)
 
 for url in url_zp:
         
@@ -92,9 +93,13 @@ for url in url_zp:
         precio_zp.append(precioElement.text)
         ubicacion_zp.append(ubicacionElement.text)
         metros2_zp.append(mtsElement.text)
-        
 
-
+print("var precio_zp:")
+print(precio_zp)
+print("var ubicacion_zp:")
+print(ubicacion_zp)
+print("var metros2_zp:")
+print(metros2_zp)
 
 dolarz=False    
 while dolarz==False:
@@ -128,7 +133,8 @@ for i in precio_zp:
 
 s=[]
 u_bi=[]
-
+print("var u_bi:")
+print(u_bi)
 for i in range(0,len(ubicacion_zp)):
     u_bi.append(ubicacion_zp[i].split('\n'))
 
