@@ -33,7 +33,7 @@ except WebDriverException as e:
         driver = uc.Chrome(version_main=correct_version)
     else:
         raise e
-
+driver.implicitly_wait(30)
 #driver = webdriver.Chrome('/Users/manuellopez/Desktop/chromedriver')
 
 urls=['https://negozona.com/anuncios/Busqueda/Todos/State-11-Mendoza/Alimentos-y-Bebidas/Todos/Todos/Todos/Todos/0,100000+?order_by_field=',
