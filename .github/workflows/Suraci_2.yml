@@ -20,9 +20,11 @@ jobs:
         
        # Need to fetch reqs if needed
       - name: Installing all necessary packages
-        run: pip install chromedriver-autoinstaller selenium pyvirtualdisplay numpy PyPDF2 pandas gspread oauth2client pyvirtualdisplay undetected-chromedriver
+        #run: pip install chromedriver-autoinstaller selenium pyvirtualdisplay numpy PyPDF2 pandas gspread oauth2client pyvirtualdisplay undetected-chromedriver
+        run: pip install chromedriver-autoinstaller selenium==4.9.0 pyvirtualdisplay numpy==1.24.3 PyPDF2 pandas==1.5.3 gspread==5.8.0 oauth2client undetected-chromedriver==3.4.6
       - name: Install xvfb
-        run: sudo apt-get install xvfb
+        #run: sudo apt-get install xvfb
+        run: sudo apt-get install xvfb xserver-xephyr
     
       - name: Running the Python (Suraci 2)
         run: python scrapper_2.py
