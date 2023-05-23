@@ -10,31 +10,29 @@ import numpy as np
 import time
 import os
 import gspread
-from pyvirtualdisplay import Display
-import undetected_chromedriver as uc
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.utils import ChromeType
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+#from pyvirtualdisplay import Display
+#import undetected_chromedriver as uc
 
+chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
-display = Display(visible=0, size=(800, 800))  
-display.start()
+chrome_options = Options()
+options = [
+    "--headless",
+    "--disable-gpu",
+    "--window-size=1920,1200",
+    "--ignore-certificate-errors",
+    "--disable-extensions",
+    "--no-sandbox",
+    "--disable-dev-shm-usage"
+]
+for option in options:
+    chrome_options.add_argument(option)
 
-#Inicio
-
-
-try:
-    # try to create a driver with the latest ChromeDriver version
-    driver = uc.Chrome()
-except WebDriverException as e:
-    if 'This version of ChromeDriver only supports Chrome version' in e.msg:
-        try:
-            # trying to get correct version from error message
-            correct_version = int(e.msg.split('Current browser version is ')[1].split('.')[0])
-        except Exception:
-            # couldn't parse correct version, raising same exception
-            raise e
-        driver = uc.Chrome(version_main=correct_version)
-    else:
-        raise e
-#driver = uc.Chrome(use_subprocess=True)
+driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
 urls_inmoclick=[
     'https://www.inmoclick.com.ar/locales-comerciales-en-alquiler?favoritos=0&limit=48&prevEstadoMap=&localidades=1%2C2%2C8%2C19%2C7%2C6%2C10&lastZoom=13&precio%5Bmin%5D=&precio%5Bmax%5D=&moneda=1&sup_cubierta%5Bmin%5D=&sup_cubierta%5Bmax%5D=&expensas%5Bmin%5D=&expensas%5Bmax%5D=',
