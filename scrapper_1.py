@@ -10,30 +10,37 @@ import numpy as np
 import time
 import os
 import gspread
-from pyvirtualdisplay import Display
-import undetected_chromedriver as uc
+#from pyvirtualdisplay import Display
+#import undetected_chromedriver as uc
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.utils import ChromeType
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 
 
-display = Display(visible=0, size=(800, 800))  
-display.start()
+#display = Display(visible=0, size=(800, 800))  
+#display.start()
 
 #Inicio
 
-try:
-    # try to create a driver with the latest ChromeDriver version
-    driver = uc.Chrome()
-except WebDriverException as e:
-    if 'This version of ChromeDriver only supports Chrome version' in e.msg:
-        try:
-            # trying to get correct version from error message
-            correct_version = int(e.msg.split('Current browser version is ')[1].split('.')[0])
-        except Exception:
-            # couldn't parse correct version, raising same exception
-            raise e
-        driver = uc.Chrome(version_main=correct_version)
-    else:
-        raise e
-driver.implicitly_wait(30)
+chrome_service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
+
+chrome_options = Options()
+options = [
+    "--headless",
+    "--disable-gpu",
+    "--window-size=1920,1200",
+    "--ignore-certificate-errors",
+    "--disable-extensions",
+    "--no-sandbox",
+    "--disable-dev-shm-usage"
+]
+for option in options:
+    chrome_options.add_argument(option)
+
+driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+
+#driver.implicitly_wait(30)
 #driver = webdriver.Chrome('/Users/manuellopez/Desktop/chromedriver')
 
 urls=['https://negozona.com/anuncios/Busqueda/Todos/State-11-Mendoza/Alimentos-y-Bebidas/Todos/Todos/Todos/Todos/0,100000+?order_by_field=',
