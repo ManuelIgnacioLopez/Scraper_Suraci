@@ -17,7 +17,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 # Configure undetected_chrome
 driver = uc.Chrome(
-        driver_executable_path=ChromeDriverManager(log_level=0).install(),
+        driver_executable_path=ChromeDriverManager().install(),
         headless=True,
     )
      
