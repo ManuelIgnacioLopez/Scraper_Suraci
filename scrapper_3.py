@@ -16,10 +16,10 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 
 # Configure undetected_chrome
-driver = uc.Chrome(
-        driver_executable_path=ChromeDriverManager().install(),
-        headless=True,
-    )
+options = uc.ChromeOptions()
+options.headless=True
+options.add_argument('--headless')
+driver = uc.Chrome()
      
 urls_zp=[
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza.html',
