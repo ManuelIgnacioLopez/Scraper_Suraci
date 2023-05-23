@@ -12,6 +12,7 @@ import os
 import gspread
 #from pyvirtualdisplay import Display
 import undetected_chromedriver as uc
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 # Configure undetected_chrome
