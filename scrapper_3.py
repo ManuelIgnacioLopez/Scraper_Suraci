@@ -19,7 +19,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 options = uc.ChromeOptions()
 options.headless=True
 options.add_argument('--headless')
-driver = uc.Chrome()
+driver = uc.Chrome(options=options, version_main=112)
      
 urls_zp=[
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza.html',
