@@ -7,24 +7,23 @@ jobs:
   scrape:
     runs-on: ubuntu-latest
     steps:
-      - name: Checking out repo
+      - name: Check out this repo
         uses: actions/checkout@v3
-      - name: Setting up Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-      - name: Installing package list
-        run: apt list --installed    
-      - name: Removing previous chrome instances on runner 
-        run: sudo apt purge google-chrome-stable  
-        
-       # Need to fetch reqs if needed
-      - name: Installing all necessary packages
-        #run: pip install chromedriver-autoinstaller selenium pyvirtualdisplay numpy PyPDF2 pandas gspread oauth2client pyvirtualdisplay undetected-chromedriver
-        run: pip install chromedriver-autoinstaller selenium==4.9.0 pyvirtualdisplay numpy==1.24.3 PyPDF2 pandas==1.5.3 gspread==5.8.0 oauth2client undetected-chromedriver==3.4.6
-      - name: Install xvfb
-        #run: sudo apt-get install xvfb
-        run: sudo apt-get install xvfb xserver-xephyr
+      - name: Installed package list
+        run: apt list --installed
+      - name: Remove Chrome
+        run: sudo apt purge google-chrome-stable
+      - name: Remove default Chromium
+        run: sudo apt purge chromium-browser
+      - name: Install a new Chromium
+        run: sudo apt install -y chromium-browser
+      - name: Install all necessary packages
+        run: pip install webdriver-manager selenium==4.9.0 numpy==1.24.3 PyPDF2 pandas==1.5.3 gspread==5.8.0
+        #run: pip install chromedriver-autoinstaller selenium==4.9.0 pyvirtualdisplay numpy==1.24.3 PyPDF2 pandas==1.5.3 gspread==5.8.0 oauth2client undetected-chromedriver==3.4.6
     
       - name: Running the Python (Suraci 2)
         run: python scrapper_2.py
