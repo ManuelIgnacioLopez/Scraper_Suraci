@@ -17,8 +17,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 # Configure undetected_chrome
 options = uc.ChromeOptions()
-options.headless=True
-options.add_argument('--headless')
+options.add_argument('--headless=new')
 driver = uc.Chrome(options=options, version_main=112)
      
 urls_zp=[
