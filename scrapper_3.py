@@ -10,30 +10,16 @@ import numpy as np
 import time
 import os
 import gspread
-from pyvirtualdisplay import Display
+#from pyvirtualdisplay import Display
 import undetected_chromedriver as uc
 
 
-display = Display(visible=0, size=(2880, 1800))  
-display.start()
-
-#Inicio
-
-try:
-    # try to create a driver with the latest ChromeDriver version
-    driver = uc.Chrome()
-except WebDriverException as e:
-    if 'This version of ChromeDriver only supports Chrome version' in e.msg:
-        try:
-            # trying to get correct version from error message
-            correct_version = int(e.msg.split('Current browser version is ')[1].split('.')[0])
-        except Exception:
-            # couldn't parse correct version, raising same exception
-            raise e
-        driver = uc.Chrome(version_main=correct_version)
-    else:
-        raise e
-driver.implicitly_wait(30)
+# Configure undetected_chrome
+driver = uc.Chrome(
+        driver_executable_path=ChromeDriverManager(log_level=0).install(),
+        headless=True,
+    )
+     
 urls_zp=[
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza.html',
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza-pagina-2.html',
