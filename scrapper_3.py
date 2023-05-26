@@ -16,9 +16,10 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 
 # Configure undetected_chrome
-options = uc.ChromeOptions()
-options.add_argument('--headless=new')
-driver = uc.Chrome(options=options)
+#options = uc.ChromeOptions()
+#options.add_argument('--headless=new')
+driver = uc.Chrome(enable_cdp_events=True, headless=True, version_main=112)
+
      
 urls_zp=[
     'https://www.zonaprop.com.ar/locales-comerciales-alquiler-mendoza.html',
