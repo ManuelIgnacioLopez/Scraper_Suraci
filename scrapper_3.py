@@ -17,8 +17,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 # Configure undetected_chrome
 options = uc.ChromeOptions()
-options.add_argument('--headless=new')
-driver = uc.Chrome(enable_cdp_events=True, options=options, headless=True, version_main=113)
+options.add_argument("enable-automation")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-extensions")
+options.add_argument("--dns-prefetch-disable")
+options.add_argument("--disable-gpu")
+
+driver = uc.Chrome(options=options, version_main=113, enable_cdp_events=True, headless=True)
 
      
 urls_zp=[
