@@ -107,21 +107,25 @@ while dolarz==False:
     dolarz=False
 pesos=[]
 for i in precio_zp:
-    if i=='Consultar Precio':
-        aa=i.replace('Consultar Precio', '')
-        pesos.append(aa)
+     try:
+          if i=='Consultar Precio':
+               aa=i.replace('Consultar Precio', '')
+               pesos.append(aa)
     
-    elif i.find('USD'):
-        aa=i.replace('$ ', '')
-        aa=aa.replace('.', '')
-        nuevo=float(aa)
-        pesos.append(nuevo)
+          elif i.find('USD'):
+               aa=i.replace('$ ', '')
+               aa=aa.replace('.', '')
+               nuevo=float(aa)
+               pesos.append(nuevo)
         
-    elif i.find('$'):
-        aa=i.replace('USD ', '')
-        aa=aa.replace('.', '')
-        nuevo=float(aa)*dollar
-        pesos.append(nuevo)
+          elif i.find('$'):
+               aa=i.replace('USD ', '')
+               aa=aa.replace('.', '')
+               nuevo=float(aa)*dollar
+               pesos.append(nuevo)
+      except:
+          pesos.append(None)
+     
 
 s=[]
 u_bi=[]
