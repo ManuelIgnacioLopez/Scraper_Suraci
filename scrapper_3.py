@@ -123,7 +123,7 @@ for i in precio_zp:
                aa=aa.replace('.', '')
                nuevo=float(aa)*dollar
                pesos.append(nuevo)
-      except:
+     except:
           pesos.append(None)
      
 
