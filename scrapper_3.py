@@ -23,7 +23,7 @@ options.add_argument("--disable-extensions")
 options.add_argument("--dns-prefetch-disable")
 options.add_argument("--disable-gpu")
 
-driver = uc.Chrome(options=options, version_main=113, enable_cdp_events=True, headless=True)
+driver = uc.Chrome(options=options, version_main=114, enable_cdp_events=True, headless=True)
 
      
 urls_zp=[
