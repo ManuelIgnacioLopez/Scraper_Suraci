@@ -175,7 +175,13 @@ df4= pd.DataFrame({'Precio' : pesos,
                                 'Departamento de Mendoza' : departamento, 'm2 totales' : m2tot, 'm2 cubiertos' : m2cub, 'Link' : url_zp}, 
                                 columns=['Precio','Direccion', 'Departamento de Mendoza', 'm2 totales','m2 cubiertos','Link'])   
     
- 
+
+# Reemplaza los infinitos con un número grande o pequeño (como prefieras)
+df4.replace([np.inf, -np.inf], np.finfo(np.float64).max, inplace=True)
+
+# Reemplaza los NaN con algún valor que prefieras, por ejemplo, 0
+df4.fillna(0, inplace=True)
+
 credentials ={
   "type": "service_account",
   "project_id": "scrapper-suraci",
